@@ -1,17 +1,17 @@
 <?php
 /**
- * evoSearch Reindex
- *
- * reindex resources for evoSearch
- *
- * @category        parser
- * @version         0.1
- * @author          hkyss
- * @documentation   empty
- * @lastupdate      09.11.2020
- * @internal    	@modx_category Search
- * @license         GNU General Public License (GPL), http://www.gnu.org/copyleft/gpl.html
- */
+* evoSearch Reindex
+*
+* reindex resources for evoSearch
+*
+* @category        parser
+* @version         0.1
+* @author          hkyss
+* @documentation   empty
+* @lastupdate      09.11.2020
+* @internal    	@modx_category Search
+* @license         GNU General Public License (GPL), http://www.gnu.org/copyleft/gpl.html
+*/
 
 ?>
 
@@ -22,9 +22,9 @@
     <link rel="stylesheet" type="text/css" href="media/style/default/style.css" />
     <link rel="stylesheet" href="media/style/common/font-awesome/css/font-awesome.min.css" />
     <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script>
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
     <script type="text/javascript">
         function Reindex(start=0,step=100,arr_count=0) {
             let answer = document.querySelector('.answer--server');
@@ -63,10 +63,40 @@
             );
         }
 
+        function Truncate() {
+            $.ajax(
+                {
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '/truncate',
+                    success: function (data)
+                    {
+                        $('.answer--server').append('<div class="message"><span class="success">SUCCESS</span>: Очистка выполнена.</div>');
+                        answer.scrollTop = answer.scrollHeight;
+                        setTimeout(function(){
+                            alert('Очистка поисковой таблицы выполнена.');
+                        },500);
+                    },
+                    error: function (data)
+                    {
+                        console.log('AjaxLoad error.');
+                        console.log(data);
+                    }
+                }
+            );
+        }
+
         function StartReindex() {
             let confirmed = confirm('Хотите выполнить переиндексацию?');
             if(confirmed === true) {
                 Reindex();
+            }
+        }
+
+        function StartTruncate() {
+            let confirmed = confirm('Хотите выполнить очистку поисковой таблицы?');
+            if(confirmed === true) {
+                Truncate();
             }
         }
     </script>
@@ -115,6 +145,7 @@
 <div id="actions">
     <ul class="actionButtons">
         <li id="reindex"><a href="#" onclick="StartReindex();">Запустить</a></li>
+        <li id="truncate"><a href="#" onclick="StartTruncate();">Очистить поиск</a></li>
     </ul>
 </div>
 <div class="answer">
