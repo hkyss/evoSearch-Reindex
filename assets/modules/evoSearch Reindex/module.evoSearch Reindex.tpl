@@ -1,20 +1,3 @@
-<?php
-/**
-* evoSearch Reindex
-*
-* reindex resources for evoSearch
-*
-* @category        parser
-* @version         0.1
-* @author          hkyss
-* @documentation   empty
-* @lastupdate      09.11.2020
-* @internal    	@modx_category Search
-* @license         GNU General Public License (GPL), http://www.gnu.org/copyleft/gpl.html
-*/
-
-?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>

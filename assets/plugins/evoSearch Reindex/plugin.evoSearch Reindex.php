@@ -1,22 +1,13 @@
 <?php
-/**
- * evoSearch Reindex Ajax
- *
- * evoSearch Reindex ajax plugin
- *
- * @category        parser
- * @version         0.1
- * @author          hkyss
- * @documentation   empty
- * @lastupdate      09.11.2020
- * @internal    	@events OnPageNotFound
- * @internal    	@modx_category Ajax
- * @license         GNU General Public License (GPL), http://www.gnu.org/copyleft/gpl.html
- */
-
 if (empty($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
   return;
 }
+
+if(empty($include_tpl)) {
+  $modx->logEvent(0,1,'empty resource templates','evoSearch reindex error.');
+  die('evoSearch reindex error.');
+}
+
 switch ($_GET['q']) {
   case 'reindex':
     $start = (int)$_POST['start'];
@@ -25,7 +16,7 @@ switch ($_GET['q']) {
     include_once MODX_BASE_PATH.'assets/lib/MODxAPI/modResource.php';
     $doc = new modResource($modx);
 
-    $select = $modx->db->query('Select id From '.$modx->getFullTableName('site_content').' Where template in (9) and published in (1) and deleted = 0');
+    $select = $modx->db->query('Select id From '.$modx->getFullTableName('site_content').' Where template in ('.$include_tpl.') and published in (1) and deleted = 0');
     $select = $modx->db->makeArray($select);
     $items = array_slice($select,$start,$step);
 
