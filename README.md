@@ -1,7 +1,7 @@
 # evoSearch-Reindex
 version 1.0
 
-#Install
+## Install
 1. Copy this repository into your site folder
 2. Create new module in evo admin panel with code
 ```php
